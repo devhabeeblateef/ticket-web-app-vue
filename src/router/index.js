@@ -7,9 +7,9 @@ import Tickets from '../views/Tickets.vue'
 import { useAuthStore } from '../stores/auth'
 
 const router = createRouter({
-  history: createWebHistory(),
+  history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
-    { path: '/', name: 'Landing', component: Landing },
+    { path: '/', name: 'Home', component: Landing },
     { path: '/auth/login', name: 'Login', component: AuthLogin },
     { path: '/auth/signup', name: 'Signup', component: AuthSignup },
     {

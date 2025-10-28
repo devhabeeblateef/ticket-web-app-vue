@@ -5,18 +5,22 @@
         <div class="w-full h-full bg-[radial-gradient(circle_at_top_right,#0f4c75_0%,transparent_50%),radial-gradient(circle_at_bottom_left,#4f378b_0%,transparent_50%)]"></div>
       </div>
 
-      <HeaderNav v-if="headerNavLoaded" />
+      <HeaderNav />
 
       <main class="flex-1">
-        <RouterView v-slot="{ Component }">
-          <component :is="Component" v-if="Component" />
-          <div v-else class="flex items-center justify-center min-h-screen">
-            <div class="text-center">
-              <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-cyan-500 mx-auto mb-4"></div>
-              <p class="text-gray-400">Loading...</p>
+        <Suspense>
+          <template #default>
+            <RouterView />
+          </template>
+          <template #fallback>
+            <div class="flex items-center justify-center min-h-screen">
+              <div class="text-center">
+                <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-cyan-500 mx-auto mb-4"></div>
+                <p class="text-gray-400">Loading...</p>
+              </div>
             </div>
-          </div>
-        </RouterView>
+          </template>
+        </Suspense>
       </main>
 
       <footer class="relative z-10 bg-gray-900/70 backdrop-blur-sm mt-16 border-t border-cyan-800/20 py-4">
@@ -28,34 +32,26 @@
         </div>
       </footer>
 
-      <ToastContainer v-if="toastContainerLoaded" />
+      <ToastContainer />
     </div>
   </div>
 </template>
 
 <script setup>
 import { RouterView } from 'vue-router'
-import { ref, onMounted } from 'vue'
+import HeaderNav from './components/HeaderNav.vue'
+import ToastContainer from './components/ToastContainer.vue'
+import { useToast } from './composables/useToast'
+import { onMounted, onErrorCaptured } from 'vue'
 
-// Lazy load components to handle potential import issues
-const HeaderNav = ref(null)
-const ToastContainer = ref(null)
-const headerNavLoaded = ref(false)
-const toastContainerLoaded = ref(false)
+// Debug logging for production
+console.log('App.vue loaded')
 
-onMounted(async () => {
+onMounted(() => {
+  console.log('App mounted successfully')
+
   try {
-    // Dynamically import components
-    const headerModule = await import('./components/HeaderNav.vue')
-    HeaderNav.value = headerModule.default
-    headerNavLoaded.value = true
-
-    const toastModule = await import('./components/ToastContainer.vue')
-    ToastContainer.value = toastModule.default
-    toastContainerLoaded.value = true
-
-    // Set up toast functionality
-    const { useToast } = await import('./composables/useToast')
+    // Set up global toast functionality
     const { success, error, warning, info, showToast } = useToast()
 
     // Global event for showing toasts - backward compatibility
@@ -84,7 +80,12 @@ onMounted(async () => {
     window.$toast.warning = warning
     window.$toast.info = info
   } catch (err) {
-    console.error('Failed to load components:', err)
+    console.error('Failed to setup toast:', err)
   }
+})
+
+onErrorCaptured((error, instance, info) => {
+  console.error('Vue error captured:', error, info)
+  return false
 })
 </script>
