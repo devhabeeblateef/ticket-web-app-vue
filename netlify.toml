@@ -27,7 +27,7 @@
   targetPort = 5173
   framework = "vite"
 
-# ── Environment (optional example) ──
+# ── Environment (updated Node version) ──
 [build.environment]
-  NODE_VERSION = "18"
+  NODE_VERSION = "20"
   NPM_FLAGS = "--legacy-peer-deps"
