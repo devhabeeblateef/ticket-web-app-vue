@@ -3,27 +3,64 @@ import { ref } from 'vue'
 
 export const useAuthStore = defineStore('auth', () => {
   const session = ref(null)
-  const tickets = ref(JSON.parse(localStorage.getItem('tickets') || '[]'))
+  
+  // Safe localStorage access with error handling
+  const getStoredTickets = () => {
+    try {
+      if (typeof window !== 'undefined' && window.localStorage) {
+        return JSON.parse(localStorage.getItem('tickets') || '[]')
+      }
+    } catch (error) {
+      console.warn('Failed to parse stored tickets:', error)
+    }
+    return []
+  }
+  
+  const tickets = ref(getStoredTickets())
 
   function login(userData) {
     session.value = userData
-    localStorage.setItem('session', JSON.stringify(userData))
+    try {
+      if (typeof window !== 'undefined' && window.localStorage) {
+        localStorage.setItem('session', JSON.stringify(userData))
+      }
+    } catch (error) {
+      console.warn('Failed to save session:', error)
+    }
   }
 
   function logout() {
     session.value = null
-    localStorage.removeItem('session')
+    try {
+      if (typeof window !== 'undefined' && window.localStorage) {
+        localStorage.removeItem('session')
+      }
+    } catch (error) {
+      console.warn('Failed to remove session:', error)
+    }
   }
 
   function addTicket(newTicket) {
-    this.tickets.push(newTicket)
-    localStorage.setItem('tickets', JSON.stringify(this.tickets))
+    tickets.value.push(newTicket)
+    try {
+      if (typeof window !== 'undefined' && window.localStorage) {
+        localStorage.setItem('tickets', JSON.stringify(tickets.value))
+      }
+    } catch (error) {
+      console.warn('Failed to save tickets:', error)
+    }
   }
 
   // Initialize session from localStorage on store creation
-  const storedSession = localStorage.getItem('session')
-  if (storedSession) {
-    session.value = JSON.parse(storedSession)
+  try {
+    if (typeof window !== 'undefined' && window.localStorage) {
+      const storedSession = localStorage.getItem('session')
+      if (storedSession) {
+        session.value = JSON.parse(storedSession)
+      }
+    }
+  } catch (error) {
+    console.warn('Failed to load stored session:', error)
   }
 
   return {

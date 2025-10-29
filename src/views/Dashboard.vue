@@ -110,7 +110,9 @@ const closedCount = computed(() => tickets.value.filter(t => t.status === 'close
 
 function logout() {
   auth.logout()
-  window.$toast('Logged out successfully', 'info')
+  if (typeof window !== 'undefined' && window.$toast) {
+    window.$toast('Logged out successfully', 'info')
+  }
   router.push('/auth/login')
 }
 </script>

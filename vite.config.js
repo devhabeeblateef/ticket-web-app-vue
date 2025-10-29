@@ -10,11 +10,13 @@ export default defineConfig({
     },
   },
   build: {
+    outDir: 'dist',
+    assetsDir: 'assets',
     rollupOptions: {
       output: {
         manualChunks: undefined,
       },
     },
   },
-  base: '/',
+  // Remove base: './' for proper SPA routing on Netlify
 })

@@ -37,20 +37,20 @@
         </p>
 
         <div class="flex flex-col sm:flex-row justify-center gap-6">
-          <a
+          <router-link
             class="py-3 px-8 text-lg font-semibold rounded-full transform transition duration-300
                    bg-white text-gray-900 shadow-2xl shadow-cyan-400/50 hover:bg-gray-200 hover:scale-105"
-            href="/auth/login"
+            to="/auth/login"
           >
             Continue
-          </a>
-          <a
+          </router-link>
+          <router-link
             class="py-3 px-8 text-lg font-semibold rounded-full transform transition duration-300
                    border border-cyan-500 text-cyan-400 hover:bg-cyan-500/10 hover:shadow-lg hover:shadow-cyan-500/20 hover:scale-105"
-            href="/auth/signup"
+            to="/auth/signup"
           >
             Get Started
-          </a>
+          </router-link>
         </div>
       </div>
     </section>
