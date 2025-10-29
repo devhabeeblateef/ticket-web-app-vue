@@ -208,7 +208,10 @@ function hideForm() {
 
 function createTicket() {
   if (!title.value || !status.value) {
-    return window.$toast('Invalid input. Please check title and status.', 'error')
+    if (typeof window !== 'undefined' && window.$toast) {
+      return window.$toast('Invalid input. Please check title and status.', 'error')
+    }
+    return
   }
   
   const newTicket = {
@@ -227,7 +230,9 @@ function createTicket() {
   ticketsUpdateTrigger.value++
   
   hideForm()
-  window.$toast('Ticket created successfully', 'success')
+  if (typeof window !== 'undefined' && window.$toast) {
+    window.$toast('Ticket created successfully', 'success')
+  }
 }
 
 function editTicket(ticket) {
@@ -240,7 +245,10 @@ function editTicket(ticket) {
 
 function updateTicket() {
   if (!title.value || !status.value) {
-    return window.$toast('Title and status are required', 'error')
+    if (typeof window !== 'undefined' && window.$toast) {
+      return window.$toast('Title and status are required', 'error')
+    }
+    return
   }
 
   const currentTickets = JSON.parse(localStorage.getItem('ticketapp_tickets') || '[]')
@@ -261,7 +269,9 @@ function updateTicket() {
   }
 
   hideForm()
-  window.$toast('Ticket updated successfully', 'success')
+  if (typeof window !== 'undefined' && window.$toast) {
+    window.$toast('Ticket updated successfully', 'success')
+  }
 }
 
 function confirmDelete(ticketId) {
@@ -279,12 +289,16 @@ function deleteTicket(id) {
   ticketsUpdateTrigger.value++
   
   showModal.value = false
-  window.$toast('Ticket deleted successfully', 'success')
+  if (typeof window !== 'undefined' && window.$toast) {
+    window.$toast('Ticket deleted successfully', 'success')
+  }
 }
 
 function logout() {
   auth.logout()
-  window.$toast('Logged out successfully', 'info')
+  if (typeof window !== 'undefined' && window.$toast) {
+    window.$toast('Logged out successfully', 'info')
+  }
   router.push('/auth/login')
 }
 

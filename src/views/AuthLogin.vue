@@ -47,7 +47,7 @@
         
         <p class="text-center text-sm mt-8 text-gray-500">
             Need system access? 
-            <a href="/auth/signup" class="text-cyan-400 hover:text-cyan-300 font-semibold transition duration-150"> Initiate Registration</a>
+            <router-link to="/auth/signup" class="text-cyan-400 hover:text-cyan-300 font-semibold transition duration-150"> Initiate Registration</router-link>
         </p>
     </div>
 </div>
@@ -78,7 +78,9 @@ function loginUser() {
   }
 
   auth.login(email.value)
-  window.$toast('Login successful', 'success')
+  if (typeof window !== 'undefined' && window.$toast) {
+    window.$toast('Login successful', 'success')
+  }
   router.push('/dashboard')
 }
 </script>

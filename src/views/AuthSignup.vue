@@ -60,7 +60,7 @@
         
         <p class="text-center text-sm mt-8 text-gray-500">
             Already have access? 
-            <a href="/auth/login" class="text-cyan-400 hover:text-cyan-300 font-semibold transition duration-150">Login to the Matrix</a>
+            <router-link to="/auth/login" class="text-cyan-400 hover:text-cyan-300 font-semibold transition duration-150">Login to the Matrix</router-link>
         </p>
     </div>
 </div>
@@ -97,7 +97,9 @@ function registerUser() {
   
   // Log the user in immediately after successful signup
   auth.login(email.value)
-  window.$toast('Account created successfully! Welcome to the dashboard.', 'success')
+  if (typeof window !== 'undefined' && window.$toast) {
+    window.$toast('Account created successfully! Welcome to the dashboard.', 'success')
+  }
   router.push('/dashboard')
 }
 </script>

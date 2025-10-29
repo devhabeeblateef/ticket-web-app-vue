@@ -18,5 +18,5 @@ export default defineConfig({
       },
     },
   },
-  base: './',
+  // Remove base: './' for proper SPA routing on Netlify
 })
