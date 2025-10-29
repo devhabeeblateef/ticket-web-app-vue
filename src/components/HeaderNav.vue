@@ -80,14 +80,22 @@
 
 <script setup>
 import { computed, ref } from 'vue'
-import { useAuthStore } from '../stores/auth'
 import { useRouter } from 'vue-router'
 
-const auth = useAuthStore()
 const router = useRouter()
 const isMobileNavOpen = ref(false)
 
-const session = computed(() => auth.session)
+// Make auth store optional to prevent errors
+let auth = null
+let session = ref(null)
+
+try {
+  const { useAuthStore } = await import('../stores/auth')
+  auth = useAuthStore()
+  session = computed(() => auth?.session || null)
+} catch (error) {
+  console.warn('Auth store not available:', error)
+}
 
 function toggleMobileNav() {
   isMobileNavOpen.value = !isMobileNavOpen.value
@@ -98,8 +106,12 @@ function closeMobileNav() {
 }
 
 function logout() {
-  auth.logout()
-  router.push('/')
-  window.$toast('Logged out successfully', 'success')
+  if (auth) {
+    auth.logout()
+    router.push('/')
+    if (window.$toast) {
+      window.$toast('Logged out successfully', 'success')
+    }
+  }
 }
 </script>
