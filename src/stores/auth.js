@@ -3,41 +3,34 @@ import { ref } from 'vue'
 
 export const useAuthStore = defineStore('auth', () => {
   const session = ref(null)
-  const user = ref(null)
+  const tickets = ref(JSON.parse(localStorage.getItem('tickets') || '[]'))
+
+  function login(userData) {
+    session.value = userData
+    localStorage.setItem('session', JSON.stringify(userData))
+  }
 
   function logout() {
     session.value = null
-    user.value = null
+    localStorage.removeItem('session')
   }
 
-  function login(userSession) {
-    session.value = userSession
-    user.value = userSession?.user || null
+  function addTicket(newTicket) {
+    this.tickets.push(newTicket)
+    localStorage.setItem('tickets', JSON.stringify(this.tickets))
+  }
+
+  // Initialize session from localStorage on store creation
+  const storedSession = localStorage.getItem('session')
+  if (storedSession) {
+    session.value = JSON.parse(storedSession)
   }
 
   return {
     session,
-    user,
+    tickets,
+    login,
     logout,
-    login
-  }
-})
-      }
-      this.tickets.push(newTicket)
-      localStorage.setItem('tickets', JSON.stringify(this.tickets))
-    },
-
-    updateTicket(updated) {
-      const index = this.tickets.findIndex(t => t.id === updated.id)
-      if (index !== -1) {
-        this.tickets[index] = updated
-        localStorage.setItem('tickets', JSON.stringify(this.tickets))
-      }
-    },
-
-    deleteTicket(id) {
-      this.tickets = this.tickets.filter(t => t.id !== id)
-      localStorage.setItem('tickets', JSON.stringify(this.tickets))
-    }
+    addTicket
   }
 })
