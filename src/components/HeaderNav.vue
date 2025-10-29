@@ -30,7 +30,7 @@
                         Tickets
                 </router-link>
 
-                <button v-if="session" @click="logout" class="px-4 py-2 text-red-400 border border-red-500 rounded-lg hover:bg-red-500/10 transition duration-200">
+                <button v-if="session" @click="logout" class="px-4 py-2 text-red-400 border border-red-500 rounded-lg hover:bg-red-500/10 transition duration-200 cursor-pointer active:scale-95">
                     Logout
                 </button>
                 </nav>
@@ -64,7 +64,7 @@
                         Tickets
                     </router-link>
 
-                    <button v-if="session" @click="logout" class="text-red-400 border border-red-500 rounded-lg hover:bg-red-500/10 transition duration-200 py-2 px-4 text-center">
+                    <button v-if="session" @click="logout" class="text-red-400 border border-red-500 rounded-lg hover:bg-red-500/10 transition duration-200 py-2 px-4 text-center cursor-pointer active:scale-95">
                         Logout
                     </button>
                 </div>
@@ -85,10 +85,16 @@ const showMobileNav = ref(false)
 const session = computed(() => auth.session)
 
 function logout() {
-  auth.logout()
-  router.push('/')
-  if (typeof window !== 'undefined' && window.$toast) {
-    window.$toast('Logged out successfully', 'success')
+  console.log('Logout function called in HeaderNav.vue')
+  try {
+    auth.logout()
+    console.log('Auth logout completed in HeaderNav')
+    router.push('/')
+    if (typeof window !== 'undefined' && window.$toast) {
+      window.$toast('Logged out successfully', 'success')
+    }
+  } catch (error) {
+    console.error('Error during logout in HeaderNav:', error)
   }
 }
 
