@@ -30,14 +30,17 @@ export const useAuthStore = defineStore('auth', () => {
   }
 
   function logout() {
+    console.log('Auth store logout called, current session:', session.value)
     session.value = null
     try {
       if (typeof window !== 'undefined' && window.localStorage) {
         localStorage.removeItem('session')
+        console.log('Session removed from localStorage')
       }
     } catch (error) {
       console.warn('Failed to remove session:', error)
     }
+    console.log('Logout completed, session is now:', session.value)
   }
 
   function addTicket(newTicket) {

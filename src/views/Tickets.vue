@@ -12,24 +12,25 @@
         
     </div>
 
-    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center pb-6 border-b border-cyan-800/50 mb-10">
-        <h2 class="text-3xl font-extrabold text-white mb-4 sm:mb-0 tracking-wide">
+    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 pb-6 border-b border-cyan-800/50 mb-6 sm:mb-10">
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-white tracking-wide">
             Ticket Log // Active
         </h2>
         
-        <div class="flex space-x-4">
-            <button @click="showNewTicketForm" class="inline-flex items-center px-6 py-3 text-lg font-semibold rounded-lg
+        <div class="flex flex-col sm:flex-row gap-2 sm:gap-4 w-full sm:w-auto">
+            <button @click="showNewTicketForm" class="inline-flex items-center justify-center px-4 sm:px-6 py-2 sm:py-3 text-base sm:text-lg font-semibold rounded-lg
                                             bg-gradient-to-r from-purple-600 to-cyan-500 text-white 
                                             shadow-lg shadow-cyan-500/30 transform transition duration-300 
-                                            hover:scale-[1.02] hover:shadow-xl hover:shadow-cyan-400/40">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                                            hover:scale-[1.02] hover:shadow-xl hover:shadow-cyan-400/40 relative">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 sm:h-5 sm:w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
                     <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd" />
                 </svg>
                 New Ticket
             </button>
             
-            <button @click="logout" class="px-5 py-2 text-red-400 border border-red-500 rounded-lg 
-                                           hover:bg-red-500/10 transition duration-200 font-semibold">
+            <button @click="logout" class="px-4 sm:px-5 py-2 text-red-400 border border-red-500 rounded-lg 
+                                           hover:bg-red-500/10 transition duration-200 font-semibold text-sm sm:text-base 
+                                           relative cursor-pointer">
                 Logout
             </button>
         </div>
@@ -89,13 +90,13 @@
         </div>
         
         <div v-for="ticket in tickets" :key="ticket.id" 
-             class="p-6 rounded-2xl border border-gray-700/50 bg-gray-900/60 backdrop-blur-md 
+             class="p-4 sm:p-6 rounded-2xl border border-gray-700/50 bg-gray-900/60 backdrop-blur-md 
                     hover:border-cyan-700/50 transition duration-300">
             
-            <div class="flex justify-between items-start mb-4">
-                <div class="flex-1">
-                    <h4 class="text-xl font-semibold text-white mb-2">{{ ticket.title }}</h4>
-                    <div class="flex items-center space-x-4 text-sm">
+            <div class="flex flex-col sm:flex-row justify-between items-start gap-4 mb-4">
+                <div class="flex-1 w-full sm:w-auto">
+                    <h4 class="text-lg sm:text-xl font-semibold text-white mb-2 break-words">{{ ticket.title }}</h4>
+                    <div class="flex flex-wrap items-center gap-2 sm:gap-4 text-sm">
                         <span :class="['px-3 py-1 rounded-full border text-xs font-medium uppercase tracking-wider', getStatusColor(ticket.status)]">
                             {{ ticket.status.replace('_', ' ') }}
                         </span>
@@ -106,19 +107,19 @@
                     </div>
                 </div>
                 
-                <div class="flex space-x-2 ml-4">
+                <div class="flex space-x-2 w-full sm:w-auto justify-end">
                     <button @click="editTicket(ticket)" 
-                            class="px-3 py-1 text-cyan-400 border border-cyan-500 rounded hover:bg-cyan-500/10 transition duration-150 text-sm">
+                            class="px-3 py-1 text-cyan-400 border border-cyan-500 rounded hover:bg-cyan-500/10 transition duration-150 text-sm flex-1 sm:flex-none">
                         Edit
                     </button>
                     <button @click="confirmDelete(ticket.id)" 
-                            class="px-3 py-1 text-red-400 border border-red-500 rounded hover:bg-red-500/10 transition duration-150 text-sm">
+                            class="px-3 py-1 text-red-400 border border-red-500 rounded hover:bg-red-500/10 transition duration-150 text-sm flex-1 sm:flex-none">
                         Delete
                     </button>
                 </div>
             </div>
             
-            <div v-if="ticket.description" class="text-gray-300 text-sm bg-gray-800/50 p-3 rounded-lg">
+            <div v-if="ticket.description" class="text-gray-300 text-sm bg-gray-800/50 p-3 rounded-lg break-words">
                 {{ ticket.description }}
             </div>
         </div>

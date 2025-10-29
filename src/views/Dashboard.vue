@@ -2,41 +2,42 @@
 <section class="py-6 md:py-10">
     <div class="max-w-[1440px] mx-auto p-4 sm:p-6 lg:p-8">
 
-    <div class="flex justify-between items-center pb-6 border-b border-cyan-800/50 mb-8">
-        <h2 class="text-4xl font-extrabold 
+    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 pb-6 border-b border-cyan-800/50 mb-6 sm:mb-8">
+        <h2 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold 
                    bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-purple-400">
             System Dashboard
         </h2>
         <div>
-            <button @click="logout" class="px-5 py-2 text-red-400 border border-red-500 rounded-lg 
+            <button @click="logout" class="px-4 sm:px-5 py-2 text-red-400 border border-red-500 rounded-lg 
                                            hover:bg-red-500/10 transition duration-200 
-                                           font-semibold shadow-md shadow-red-900/30">
+                                           font-semibold shadow-md shadow-red-900/30 text-sm sm:text-base 
+                                           relative cursor-pointer">
                 Logout
             </button>
         </div>
     </div>
 
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 mb-8 sm:mb-12">
 
-        <div class="p-6 rounded-xl border border-green-800/50 bg-gray-900/50 backdrop-blur-sm
+        <div class="p-4 sm:p-6 rounded-xl border border-green-800/50 bg-gray-900/50 backdrop-blur-sm
                     shadow-xl shadow-green-900/30 transition duration-300 hover:shadow-green-700/50
                     border-l-4 border-green-500 hover:scale-[1.01] cursor-pointer">
-            <h3 class="text-5xl font-extrabold text-green-400 mb-1 [text-shadow:0_0_5px_rgba(0,255,0,0.3)]">{{ totalCount }}</h3>
-            <p class="text-gray-400 text-sm uppercase tracking-widest font-mono">Total tickets</p>
+            <h3 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-green-400 mb-1 [text-shadow:0_0_5px_rgba(0,255,0,0.3)]">{{ totalCount }}</h3>
+            <p class="text-gray-400 text-xs sm:text-sm uppercase tracking-widest font-mono">Total tickets</p>
         </div>
 
-        <div class="p-6 rounded-xl border border-amber-800/50 bg-gray-900/50 backdrop-blur-sm
+        <div class="p-4 sm:p-6 rounded-xl border border-amber-800/50 bg-gray-900/50 backdrop-blur-sm
                     shadow-xl shadow-amber-900/30 transition duration-300 hover:shadow-amber-700/50
                     border-l-4 border-amber-500 hover:scale-[1.01] cursor-pointer">
-            <h3 class="text-5xl font-extrabold text-amber-400 mb-1 [text-shadow:0_0_5px_rgba(255,255,0,0.3)]">{{ openCount }}</h3>
-            <p class="text-gray-400 text-sm uppercase tracking-widest font-mono">Open</p>
+            <h3 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-amber-400 mb-1 [text-shadow:0_0_5px_rgba(255,255,0,0.3)]">{{ openCount }}</h3>
+            <p class="text-gray-400 text-xs sm:text-sm uppercase tracking-widest font-mono">Open</p>
         </div>
 
-        <div class="p-6 rounded-xl border border-gray-700/50 bg-gray-900/50 backdrop-blur-sm
+        <div class="p-4 sm:p-6 rounded-xl border border-gray-700/50 bg-gray-900/50 backdrop-blur-sm
                     shadow-xl shadow-gray-900/30 transition duration-300 hover:shadow-gray-700/50
                     border-l-4 border-gray-500 hover:scale-[1.01] cursor-pointer">
-            <h3 class="text-5xl font-extrabold text-gray-400 mb-1">{{ closedCount }}</h3>
-            <p class="text-gray-400 text-sm uppercase tracking-widest font-mono">Closed</p>
+            <h3 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-gray-400 mb-1">{{ closedCount }}</h3>
+            <p class="text-gray-400 text-xs sm:text-sm uppercase tracking-widest font-mono">Closed</p>
         </div>
     </div>
 
