@@ -16,8 +16,8 @@ export const useAuthStore = defineStore('auth', () => {
   }
 
   function addTicket(newTicket) {
-    this.tickets.push(newTicket)
-    localStorage.setItem('tickets', JSON.stringify(this.tickets))
+    tickets.value.push(newTicket)
+    localStorage.setItem('tickets', JSON.stringify(tickets.value))
   }
 
   // Initialize session from localStorage on store creation
