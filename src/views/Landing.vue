@@ -116,16 +116,11 @@
   </div>
 </template>
 
-<script>
-export default {
-  name: "HomePage",
-  data() {
-    return {
-      heroBgClass: "bg-gray-900",
-      featureBgClass: "bg-gray-950",
-      waveFillHex: "#0a0a0a",
-      wavePath: "M 0 100 L 0 0 C 400 85, 1000 85, 1440 0 L 1440 100 Z",
-    };
-  },
-};
+<script setup>
+import { ref } from 'vue'
+
+const heroBgClass = ref("bg-gray-900")
+const featureBgClass = ref("bg-gray-950")
+const waveFillHex = ref("#0a0a0a")
+const wavePath = ref("M 0 100 L 0 0 C 400 85, 1000 85, 1440 0 L 1440 100 Z")
 </script>
