@@ -1,27 +1,27 @@
 import { defineStore } from 'pinia'
+import { ref } from 'vue'
 
-export const useAuthStore = defineStore('auth', {
-  state: () => ({
-    session: JSON.parse(localStorage.getItem('ticketapp_session')) || null,
-    tickets: JSON.parse(localStorage.getItem('tickets')) || []
-  }),
+export const useAuthStore = defineStore('auth', () => {
+  const session = ref(null)
+  const user = ref(null)
 
-  actions: {
-    login(email) {
-      const session = { email, logged_in: true, login_time: Date.now() }
-      localStorage.setItem('ticketapp_session', JSON.stringify(session))
-      this.session = session
-    },
+  function logout() {
+    session.value = null
+    user.value = null
+  }
 
-    logout() {
-      localStorage.removeItem('ticketapp_session')
-      this.session = null
-    },
+  function login(userSession) {
+    session.value = userSession
+    user.value = userSession?.user || null
+  }
 
-    addTicket(ticket) {
-      const newTicket = {
-        id: Date.now(),
-        ...ticket
+  return {
+    session,
+    user,
+    logout,
+    login
+  }
+})
       }
       this.tickets.push(newTicket)
       localStorage.setItem('tickets', JSON.stringify(this.tickets))

@@ -1,4 +1,5 @@
 import { createApp } from 'vue'
+import { createPinia } from 'pinia'
 import App from './App.vue'
 import router from './router'
 import './style.css'
@@ -7,11 +8,13 @@ console.log('Starting Vue app...')
 
 try {
   const app = createApp(App)
+  const pinia = createPinia()
   
   app.config.errorHandler = (err, instance, info) => {
     console.error('Global error handler:', err, info)
   }
   
+  app.use(pinia)
   app.use(router)
   app.mount('#app')
   
